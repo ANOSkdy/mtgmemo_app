@@ -1,0 +1,67 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.page {
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card {
+  background: #111827;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: grid;
+  gap: 0.875rem;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin: 0;
+}
+
+p,
+li,
+a,
+code {
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+ul {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+a {
+  color: #93c5fd;
+  text-underline-offset: 2px;
+}
+
+a:focus-visible {
+  outline: 2px solid #bfdbfe;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.hint {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
