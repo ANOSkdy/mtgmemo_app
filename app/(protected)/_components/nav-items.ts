@@ -17,6 +17,8 @@ export function buildNavItems(pathname: string): NavItem[] {
     ...baseItems,
     { href: `/project/${projectId}`, label: '案件ホーム' },
     { href: `/project/${projectId}/meeting-notes`, label: '議事録' },
-    { href: `/project/${projectId}/tasks`, label: 'タスク' }
+    { href: `/project/${projectId}/tasks`, label: 'タスク' },
+    { href: `/project/${projectId}/files`, label: '共有フォルダ' },
+    { href: `/project/${projectId}/chat`, label: 'チャット' }
   ];
 }

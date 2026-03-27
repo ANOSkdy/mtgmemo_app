@@ -48,6 +48,12 @@ export default async function ProjectHomePage({
             <li>
               <Link href={`/project/${project.id}/tasks`}>タスク一覧</Link>
             </li>
+            <li>
+              <Link href={`/project/${project.id}/files`}>共有フォルダ</Link>
+            </li>
+            <li>
+              <Link href={`/project/${project.id}/chat`}>グループチャット</Link>
+            </li>
           </ul>
         </article>
       </div>
