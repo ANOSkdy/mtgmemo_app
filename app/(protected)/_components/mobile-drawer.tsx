@@ -6,11 +6,11 @@ import { useState } from 'react';
 
 import { buildNavItems } from '@/app/(protected)/_components/nav-items';
 
-export function MobileDrawer() {
+export function MobileDrawer({ role }: { role: "user" | "admin" | "global" }) {
   const [open, setOpen] = useState(false);
   const currentPath = usePathname();
 
-  const navItems = buildNavItems(currentPath);
+  const navItems = buildNavItems(currentPath, role);
 
   return (
     <>

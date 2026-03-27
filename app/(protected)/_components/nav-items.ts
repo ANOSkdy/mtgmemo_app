@@ -3,11 +3,16 @@ export type NavItem = {
   label: string;
 };
 
-export function buildNavItems(pathname: string): NavItem[] {
+export function buildNavItems(pathname: string, role: "user" | "admin" | "global"): NavItem[] {
   const projectRouteMatch = pathname.match(/^\/project\/([^/]+)/);
   const projectId = projectRouteMatch?.[1];
 
   const baseItems: NavItem[] = [{ href: '/projects', label: '案件選択' }];
+
+  if (role === 'global') {
+    baseItems.push({ href: '/admin/projects', label: '案件管理' });
+    baseItems.push({ href: '/admin/accounts', label: 'アカウント管理' });
+  }
 
   if (!projectId) {
     return baseItems;

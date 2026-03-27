@@ -14,7 +14,7 @@ export default async function ProtectedLayout({
         <div>
           <h1 className="appTitle">MTG Memo</h1>
           <p className="appSubtitle">{sessionUser.email}</p>
-          <SidebarNav />
+          <SidebarNav role={sessionUser.role} />
         </div>
         <form action="/api/auth/logout" method="post">
           <button type="submit" className="secondaryButton fullWidth">
@@ -25,7 +25,7 @@ export default async function ProtectedLayout({
 
       <div className="mainArea">
         <header className="topBar">
-          <MobileDrawer />
+          <MobileDrawer role={sessionUser.role} />
           <div>
             <strong>{sessionUser.email}</strong>
             <span className="roleBadge">{sessionUser.role}</span>

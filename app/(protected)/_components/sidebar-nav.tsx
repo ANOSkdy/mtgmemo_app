@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation';
 
 import { buildNavItems } from '@/app/(protected)/_components/nav-items';
 
-export function SidebarNav() {
+export function SidebarNav({ role }: { role: "user" | "admin" | "global" }) {
   const currentPath = usePathname();
 
-  const navItems = buildNavItems(currentPath);
+  const navItems = buildNavItems(currentPath, role);
 
   return (
     <nav className="navList" aria-label="サイドナビゲーション">
