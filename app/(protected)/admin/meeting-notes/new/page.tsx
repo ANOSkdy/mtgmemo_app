@@ -34,7 +34,7 @@ export default async function NewMeetingNotePage({
     <section className="card">
       <h2>議事録作成</h2>
       {error ? <p className="errorText">入力内容を確認してください。</p> : null}
-      <form action="/admin/meeting-notes/new" method="post" className="entityForm">
+      <form action="/api/admin/meeting-notes/new" method="post" className="entityForm">
         <label>
           案件
           <select name="projectId" defaultValue={selectedProjectId || projects[0]?.id} required>

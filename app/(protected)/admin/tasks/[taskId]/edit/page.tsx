@@ -53,7 +53,7 @@ export default async function EditTaskPage({
     <section className="card">
       <h2>タスク編集</h2>
       {error ? <p className="errorText">入力内容を確認してください。</p> : null}
-      <form method="post" className="entityForm">
+      <form action={`/api/admin/tasks/${task.id}/edit`} method="post" className="entityForm">
         <label>
           案件
           <select name="projectId" defaultValue={task.projectId} required>

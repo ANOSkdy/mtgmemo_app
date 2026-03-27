@@ -5,8 +5,8 @@ import { query } from '@/lib/db';
 import type { SessionUser } from '@/lib/auth';
 import type { TaskPriority, TaskStatus } from '@/lib/phase2';
 
-export const taskStatuses: TaskStatus[] = ['not_started', 'in_progress', 'done'];
-export const taskPriorities: TaskPriority[] = ['high', 'medium', 'low'];
+export const taskStatuses = ['not_started', 'in_progress', 'done'] as const satisfies readonly TaskStatus[];
+export const taskPriorities = ['high', 'medium', 'low'] as const satisfies readonly TaskPriority[];
 
 export const meetingNoteFormSchema = z.object({
   projectId: z.string().uuid(),

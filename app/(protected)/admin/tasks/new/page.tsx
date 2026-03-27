@@ -45,7 +45,7 @@ export default async function NewTaskPage({
     <section className="card">
       <h2>タスク作成</h2>
       {error ? <p className="errorText">入力内容を確認してください。</p> : null}
-      <form action="/admin/tasks/new" method="post" className="entityForm">
+      <form action="/api/admin/tasks/new" method="post" className="entityForm">
         <label>
           案件
           <select name="projectId" defaultValue={selectedProjectId || projects[0]?.id} required>
