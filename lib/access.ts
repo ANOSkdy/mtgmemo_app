@@ -31,24 +31,24 @@ export async function verifyUserCredentials(email: string, password: string): Pr
 export async function listProjectsForUser(userId: string, role: AppRole): Promise<ProjectRow[]> {
   if (role === 'global') {
     const result = await query<ProjectRow>(
-      `SELECT id::text, name
+      `SELECT id::text, project_name AS name
        FROM projects
        WHERE deleted_at IS NULL
-       ORDER BY name ASC`
+       ORDER BY project_name ASC`
     );
 
     return result.rows;
   }
 
   const result = await query<ProjectRow>(
-    `SELECT p.id::text, p.name
+    `SELECT p.id::text, p.project_name AS name
      FROM projects p
      INNER JOIN project_members pm
        ON pm.project_id = p.id
      WHERE p.deleted_at IS NULL
        AND pm.deleted_at IS NULL
        AND pm.user_id = $1
-     ORDER BY p.name ASC`,
+     ORDER BY p.project_name ASC`,
     [userId]
   );
 
@@ -62,7 +62,7 @@ export async function findProjectForUser(
 ): Promise<ProjectRow | null> {
   if (role === 'global') {
     const result = await query<ProjectRow>(
-      `SELECT id::text, name
+      `SELECT id::text, project_name AS name
        FROM projects
        WHERE id = $1
          AND deleted_at IS NULL
@@ -74,7 +74,7 @@ export async function findProjectForUser(
   }
 
   const result = await query<ProjectRow>(
-    `SELECT p.id::text, p.name
+    `SELECT p.id::text, p.project_name AS name
      FROM projects p
      INNER JOIN project_members pm
        ON pm.project_id = p.id
