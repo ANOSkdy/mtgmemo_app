@@ -254,3 +254,104 @@ input {
     grid-template-columns: 1fr;
   }
 }
+
+.listStack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.listItem {
+  gap: 0.625rem;
+}
+
+.listItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.metaList {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.metaList dt {
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.metaList dd {
+  margin: 0.125rem 0 0;
+}
+
+.badgeGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  border: 1px solid #cbd5e1;
+  border-radius: 9999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+  background: #f8fafc;
+}
+
+.badgePriorityHigh {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.badgePriorityMedium {
+  background: #fef9c3;
+  border-color: #fde047;
+  color: #854d0e;
+}
+
+.badgePriorityLow {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.simpleList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.simpleListItem,
+.commentItem {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.625rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.cardHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.plainText {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .metaList {
+    grid-template-columns: 1fr;
+  }
+}
