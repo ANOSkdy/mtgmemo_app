@@ -39,9 +39,16 @@ export default async function TaskDetailPage({
     <section className="card">
       <div className="cardHeaderRow">
         <h2>{task.title}</h2>
-        <Link href={`/project/${project.id}/tasks`} className="secondaryButton">
-          一覧へ戻る
-        </Link>
+        <div className="formActions">
+          {sessionUser.role === 'global' ? (
+            <Link href={`/admin/tasks/${task.id}/edit`} className="secondaryButton">
+              編集
+            </Link>
+          ) : null}
+          <Link href={`/project/${project.id}/tasks`} className="secondaryButton">
+            一覧へ戻る
+          </Link>
+        </div>
       </div>
 
       <div className="badgeGroup">

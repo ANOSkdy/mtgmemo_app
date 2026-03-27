@@ -39,9 +39,16 @@ export default async function MeetingNoteDetailPage({
     <section className="card">
       <div className="cardHeaderRow">
         <h2>{note.title}</h2>
-        <Link href={`/project/${project.id}/meeting-notes`} className="secondaryButton">
-          一覧へ戻る
-        </Link>
+        <div className="formActions">
+          {sessionUser.role === 'global' ? (
+            <Link href={`/admin/meeting-notes/${note.id}/edit`} className="secondaryButton">
+              編集
+            </Link>
+          ) : null}
+          <Link href={`/project/${project.id}/meeting-notes`} className="secondaryButton">
+            一覧へ戻る
+          </Link>
+        </div>
       </div>
       <dl className="metaList">
         <div>

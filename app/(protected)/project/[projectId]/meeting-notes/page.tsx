@@ -31,7 +31,14 @@ export default async function MeetingNotesPage({
 
   return (
     <section className="card">
-      <h2>議事録一覧</h2>
+      <div className="cardHeaderRow">
+        <h2>議事録一覧</h2>
+        {sessionUser.role === 'global' ? (
+          <Link href={`/admin/meeting-notes/new?projectId=${project.id}`} className="secondaryButton">
+            新規作成
+          </Link>
+        ) : null}
+      </div>
       <p>{project.name}</p>
       <div className="listStack">
         {notes.length === 0 ? (
