@@ -33,24 +33,30 @@ export const accountUpdateSchema = z.object({
   projectIds: z.array(z.string().uuid()).default([])
 });
 
-export const projectCreateSchema = z
-  .object({
-    projectName: z.string().trim().min(1).max(200),
-    clientName: z.string().trim().min(1).max(200),
-    description: z.string().trim().max(5000).optional(),
-    startDate: dateSchema,
-    endDate: dateSchema,
-    status: z.enum(projectStatuses),
-    memberIds: z.array(z.string().uuid()).default([])
-  })
+const projectSchemaBase = z.object({
+  projectName: z.string().trim().min(1).max(200),
+  clientName: z.string().trim().min(1).max(200),
+  description: z.string().trim().max(5000).optional(),
+  startDate: dateSchema,
+  endDate: dateSchema,
+  status: z.enum(projectStatuses),
+  memberIds: z.array(z.string().uuid()).default([])
+});
+
+export const projectCreateSchema = projectSchemaBase
   .refine(
     (input) => !input.startDate || !input.endDate || input.startDate <= input.endDate,
     '開始日は終了日以前に設定してください'
   );
 
-export const projectUpdateSchema = projectCreateSchema.extend({
-  projectId: z.string().uuid()
-});
+export const projectUpdateSchema = projectSchemaBase
+  .extend({
+    projectId: z.string().uuid()
+  })
+  .refine(
+    (input) => !input.startDate || !input.endDate || input.startDate <= input.endDate,
+    '開始日は終了日以前に設定してください'
+  );
 
 export type AccountListItem = {
   id: string;
