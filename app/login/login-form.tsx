@@ -26,7 +26,19 @@ export function LoginForm() {
     });
 
     if (!response.ok) {
-      setError('メールアドレスまたはパスワードが正しくありません。');
+      let apiError: string | null = null;
+      try {
+        const body = (await response.json()) as { error?: string };
+        apiError = body.error ?? null;
+      } catch {
+        apiError = null;
+      }
+
+      if (apiError === 'AUTH_SECRET_NOT_CONFIGURED') {
+        setError('サーバー設定エラー: AUTH_SECRET または NEXTAUTH_SECRET を設定してください。');
+      } else {
+        setError('メールアドレスまたはパスワードが正しくありません。');
+      }
       setLoading(false);
       return;
     }

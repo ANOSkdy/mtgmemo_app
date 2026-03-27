@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { setSessionCookie } from '@/lib/auth';
 import { verifyUserCredentials } from '@/lib/access';
+import { isMissingAuthSecretError } from '@/lib/auth-secret';
 
 export const runtime = 'nodejs';
 
@@ -29,11 +30,22 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'INVALID_CREDENTIALS' }, { status: 401 });
   }
 
-  await setSessionCookie({
-    userId: user.id,
-    email: user.email,
-    role: user.role
-  });
+  try {
+    await setSessionCookie({
+      userId: user.id,
+      email: user.email,
+      role: user.role
+    });
+  } catch (error) {
+    if (isMissingAuthSecretError(error)) {
+      return NextResponse.json(
+        { ok: false, error: 'AUTH_SECRET_NOT_CONFIGURED' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ ok: false, error: 'AUTH_SESSION_FAILED' }, { status: 500 });
+  }
 
   return NextResponse.json({ ok: true });
 }

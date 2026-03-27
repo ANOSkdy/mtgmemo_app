@@ -3,6 +3,7 @@ import 'server-only';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getAuthSecret } from '@/lib/auth-secret';
 
 const SESSION_COOKIE = 'mtgmemo_session';
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
@@ -15,15 +16,6 @@ export type SessionUser = {
   role: AppRole;
   exp: number;
 };
-
-function getSessionSecret(): string {
-  const secret = process.env.SESSION_SECRET;
-  if (!secret) {
-    throw new Error('MISSING_SESSION_SECRET');
-  }
-
-  return secret;
-}
 
 function toBase64Url(value: string): string {
   return Buffer.from(value, 'utf8').toString('base64url');
@@ -38,7 +30,8 @@ function fromBase64Url(value: string): string | null {
 }
 
 function signPayload(payload: string): string {
-  return createHmac('sha256', getSessionSecret()).update(payload).digest('base64url');
+  const secret = getAuthSecret({ required: true });
+  return createHmac('sha256', secret).update(payload).digest('base64url');
 }
 
 function serializeSession(session: SessionUser): string {
@@ -58,7 +51,12 @@ function parseSession(token: string | undefined): SessionUser | null {
     return null;
   }
 
-  const expectedSignature = signPayload(payload);
+  const secret = getAuthSecret();
+  if (!secret) {
+    return null;
+  }
+
+  const expectedSignature = createHmac('sha256', secret).update(payload).digest('base64url');
   const signatureBuffer = Buffer.from(signature);
   const expectedBuffer = Buffer.from(expectedSignature);
 
