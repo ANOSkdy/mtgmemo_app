@@ -31,7 +31,14 @@ export default async function TasksPage({
 
   return (
     <section className="card">
-      <h2>タスク一覧</h2>
+      <div className="cardHeaderRow">
+        <h2>タスク一覧</h2>
+        {sessionUser.role === 'global' ? (
+          <Link href={`/admin/tasks/new?projectId=${project.id}`} className="secondaryButton">
+            新規作成
+          </Link>
+        ) : null}
+      </div>
       <p>{project.name}</p>
       <div className="listStack">
         {tasks.length === 0 ? (
