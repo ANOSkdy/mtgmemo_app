@@ -40,11 +40,14 @@ export default async function ProjectHomePage({
           <p>この画面を起点に会議メモ・タスク等を追加予定です。</p>
         </article>
         <article className="panel">
-          <h3>次のステップ</h3>
+          <h3>メニュー</h3>
           <ul>
-            <li>会議メモ一覧</li>
-            <li>タスク一覧</li>
-            <li>ファイル一覧</li>
+            <li>
+              <Link href={`/project/${project.id}/meeting-notes`}>議事録一覧</Link>
+            </li>
+            <li>
+              <Link href={`/project/${project.id}/tasks`}>タスク一覧</Link>
+            </li>
           </ul>
         </article>
       </div>
