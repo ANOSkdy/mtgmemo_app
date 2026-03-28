@@ -30,14 +30,14 @@ export default async function AccountsPage() {
           {accounts.map((account) => (
             <li key={account.id} className="simpleListItem">
               <div className="listItemHeader">
-                <strong>{account.name}</strong>
+                <strong className="safeBreak">{account.name}</strong>
                 <div className="badgeGroup">
                   <span className="badge">{roleLabel(account.role)}</span>
                   <span className="badge">{account.isActive ? 'active' : 'inactive'}</span>
                   {account.deletedAt ? <span className="badge">deleted</span> : null}
                 </div>
               </div>
-              <p>{account.email}</p>
+              <p className="safeBreak">{account.email}</p>
               {!account.deletedAt ? (
                 <Link href={`/admin/accounts/${account.id}/edit`} className="secondaryButton">
                   編集

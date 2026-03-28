@@ -43,7 +43,7 @@ export default async function ProjectChatPage({
           messages.map((message) => (
             <article className="commentItem" key={message.id}>
               <div className="listItemHeader">
-                <strong>{message.postedByName}</strong>
+                <strong className="safeBreak">{message.postedByName}</strong>
                 <div className="formActions">
                   <span>{formatDateTime(message.createdAt)}</span>
                   {sessionUser.role === 'global' ? (

@@ -26,13 +26,13 @@ export default async function AdminProjectsPage() {
           {projects.map((project) => (
             <li key={project.id} className="simpleListItem">
               <div className="listItemHeader">
-                <strong>{project.projectName}</strong>
+                <strong className="safeBreak">{project.projectName}</strong>
                 <div className="badgeGroup">
                   <span className="badge">{project.status}</span>
                   {project.deletedAt ? <span className="badge">deleted</span> : null}
                 </div>
               </div>
-              <p>{project.clientName}</p>
+              <p className="safeBreak">{project.clientName}</p>
               {!project.deletedAt ? (
                 <Link href={`/admin/projects/${project.id}/edit`} className="secondaryButton">
                   編集
