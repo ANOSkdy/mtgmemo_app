@@ -33,6 +33,7 @@ a {
   display: grid;
   place-items: center;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .card {
@@ -375,6 +376,11 @@ textarea {
   line-height: 1.6;
 }
 
+.safeBreak {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .entityForm {
   display: grid;
   gap: 0.875rem;
@@ -416,6 +422,35 @@ textarea {
 
   .metaList {
     grid-template-columns: 1fr;
+  }
+
+  .loginPage {
+    place-items: start stretch;
+    padding-top: 0.75rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  .formActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .formActions > * {
+    width: 100%;
+  }
+
+  .formActions :is(button, .secondaryButton) {
+    width: 100%;
+    text-align: center;
+  }
+
+  .checkboxLabel {
+    align-items: flex-start;
   }
 }
 

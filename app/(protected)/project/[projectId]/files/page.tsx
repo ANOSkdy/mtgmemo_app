@@ -43,7 +43,7 @@ export default async function ProjectFilesPage({
           files.map((file) => (
             <article className="panel listItem" key={file.id}>
               <div className="listItemHeader">
-                <h3>{file.fileName}</h3>
+                <h3 className="safeBreak">{file.fileName}</h3>
                 <div className="formActions">
                   <a
                     href={`/api/files/${file.id}/download?projectId=${project.id}`}
@@ -65,7 +65,7 @@ export default async function ProjectFilesPage({
               <dl className="metaList">
                 <div>
                   <dt>種別</dt>
-                  <dd>{file.mimeType}</dd>
+                  <dd className="safeBreak">{file.mimeType}</dd>
                 </div>
                 <div>
                   <dt>サイズ</dt>
@@ -73,7 +73,7 @@ export default async function ProjectFilesPage({
                 </div>
                 <div>
                   <dt>登録者</dt>
-                  <dd>{file.uploadedByName}</dd>
+                  <dd className="safeBreak">{file.uploadedByName}</dd>
                 </div>
                 <div>
                   <dt>登録日時</dt>
