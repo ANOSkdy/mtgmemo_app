@@ -26,7 +26,7 @@ export default async function ProtectedLayout({
       <div className="mainArea">
         <header className="topBar">
           <MobileDrawer role={sessionUser.role} />
-          <div>
+          <div className="topBarIdentity">
             <strong>{sessionUser.email}</strong>
             <span className="roleBadge">{sessionUser.role}</span>
           </div>

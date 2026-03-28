@@ -13,6 +13,7 @@ body {
   min-height: 100vh;
   background: #f1f5f9;
   color: #0f172a;
+  overflow-x: hidden;
 }
 
 a {
@@ -162,6 +163,7 @@ textarea {
 .mainArea {
   display: grid;
   grid-template-rows: auto 1fr;
+  min-width: 0;
 }
 
 .topBar {
@@ -172,6 +174,12 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.topBarIdentity {
+  min-width: 0;
+  word-break: break-all;
 }
 
 .topBarActions {
@@ -191,6 +199,7 @@ textarea {
 
 .content {
   padding: 1rem;
+  min-width: 0;
 }
 
 .projectList {
@@ -204,6 +213,7 @@ textarea {
   border-radius: 0.5rem;
   padding: 0.75rem;
   background: #f8fafc;
+  overflow-wrap: anywhere;
 }
 
 .projectHomeGrid {
@@ -218,6 +228,7 @@ textarea {
   padding: 0.75rem;
   display: grid;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .menuButton {
@@ -239,6 +250,7 @@ textarea {
   background: #0f172a;
   color: #e2e8f0;
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .drawerHeader {
@@ -295,6 +307,7 @@ textarea {
 
 .metaList dd {
   margin: 0.125rem 0 0;
+  overflow-wrap: anywhere;
 }
 
 .badgeGroup {
@@ -345,6 +358,7 @@ textarea {
   padding: 0.625rem;
   display: grid;
   gap: 0.25rem;
+  min-width: 0;
 }
 
 .cardHeaderRow {
@@ -357,6 +371,7 @@ textarea {
 
 .plainText {
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
   line-height: 1.6;
 }
 
@@ -377,6 +392,28 @@ textarea {
 }
 
 @media (max-width: 700px) {
+  .page {
+    padding: 0.75rem;
+  }
+
+  .topBar {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .topBarActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .secondaryButton,
+  button {
+    min-height: 2.5rem;
+  }
+
+  .content {
+    padding: 0.75rem;
+  }
+
   .metaList {
     grid-template-columns: 1fr;
   }
