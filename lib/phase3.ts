@@ -178,9 +178,9 @@ export async function writeAuditLog({
   metadata
 }: {
   actor: SessionUser;
-  projectId: string;
+  projectId?: string | null;
   actionType: string;
-  targetType: 'meeting_note' | 'task';
+  targetType: string;
   targetId: string;
   metadata: Record<string, unknown>;
 }): Promise<void> {
@@ -200,7 +200,7 @@ export async function writeAuditLog({
       actor.userId,
       actor.email,
       actor.role,
-      projectId,
+      projectId ?? null,
       actionType,
       targetType,
       targetId,
