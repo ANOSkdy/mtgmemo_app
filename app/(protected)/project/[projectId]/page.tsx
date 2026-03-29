@@ -4,8 +4,7 @@ import { z } from 'zod';
 import { findProjectForUser } from '@/lib/access';
 import { requireSessionUser } from '@/lib/auth';
 import { query } from '@/lib/db';
-import { formatDate, formatDateTime, statusLabels } from '@/lib/phase2-view';
-import type { TaskStatus } from '@/lib/phase2';
+import { formatDate } from '@/lib/phase2-view';
 
 const paramsSchema = z.object({
   projectId: z.string().trim().min(1)
@@ -19,7 +18,6 @@ type ProjectDetailRow = {
   startDate: string | null;
   endDate: string | null;
   description: string | null;
-  updatedAt: string;
 };
 
 type ProjectSummaryRow = {
@@ -32,29 +30,21 @@ type ProjectSummaryRow = {
 type RecentMeetingNote = {
   id: string;
   title: string;
-  meetingDate: string | null;
-  updatedAt: string;
 };
 
 type RecentTask = {
   id: string;
   title: string;
-  status: TaskStatus;
-  dueDate: string | null;
-  updatedAt: string;
 };
 
 type RecentFile = {
   id: string;
   fileName: string;
-  createdAt: string;
 };
 
 type RecentChat = {
   id: string;
   message: string;
-  postedByName: string;
-  createdAt: string;
 };
 
 const projectStatusLabels: Record<string, string> = {
@@ -95,8 +85,7 @@ export default async function ProjectHomePage({
                 p.status,
                 p.start_date::text AS "startDate",
                 p.end_date::text AS "endDate",
-                p.description,
-                p.updated_at::text AS "updatedAt"
+                p.description
          FROM projects p
          WHERE p.id = $1
            AND p.deleted_at IS NULL
@@ -131,9 +120,7 @@ export default async function ProjectHomePage({
       ),
       query<RecentMeetingNote>(
         `SELECT mn.id::text,
-                mn.title,
-                mn.meeting_date::text AS "meetingDate",
-                mn.updated_at::text AS "updatedAt"
+                mn.title
          FROM meeting_notes mn
          WHERE mn.project_id = $1
            AND mn.deleted_at IS NULL
@@ -143,10 +130,7 @@ export default async function ProjectHomePage({
       ),
       query<RecentTask>(
         `SELECT t.id::text,
-                t.title,
-                t.status,
-                t.due_date::text AS "dueDate",
-                t.updated_at::text AS "updatedAt"
+                t.title
          FROM tasks t
          WHERE t.project_id = $1
            AND t.deleted_at IS NULL
@@ -156,8 +140,7 @@ export default async function ProjectHomePage({
       ),
       query<RecentFile>(
         `SELECT f.id::text,
-                f.file_name AS "fileName",
-                f.created_at::text AS "createdAt"
+                f.file_name AS "fileName"
          FROM files f
          WHERE f.project_id = $1
            AND f.deleted_at IS NULL
@@ -167,13 +150,8 @@ export default async function ProjectHomePage({
       ),
       query<RecentChat>(
         `SELECT cm.id::text,
-                cm.message,
-                COALESCE(u.name, u.email) AS "postedByName",
-                cm.created_at::text AS "createdAt"
+                cm.message
          FROM chat_messages cm
-         INNER JOIN users u
-           ON u.id = cm.posted_by
-          AND u.deleted_at IS NULL
          WHERE cm.project_id = $1
            AND cm.deleted_at IS NULL
          ORDER BY cm.created_at DESC
@@ -218,10 +196,6 @@ export default async function ProjectHomePage({
               <dd>
                 {formatDate(projectDetail.startDate)} 〜 {formatDate(projectDetail.endDate)}
               </dd>
-            </div>
-            <div>
-              <dt>最終更新</dt>
-              <dd>{formatDateTime(projectDetail.updatedAt)}</dd>
             </div>
           </dl>
           {projectDetail.description ? (
@@ -281,9 +255,6 @@ export default async function ProjectHomePage({
               {meetingNotesResult.rows.map((note) => (
                 <li key={note.id} className="simpleListItem">
                   <Link href={`/project/${project.id}/meeting-notes/${note.id}`}>{note.title}</Link>
-                  <p>
-                    開催日: {formatDate(note.meetingDate)} / 更新: {formatDateTime(note.updatedAt)}
-                  </p>
                 </li>
               ))}
             </ul>
@@ -299,10 +270,6 @@ export default async function ProjectHomePage({
               {tasksResult.rows.map((task) => (
                 <li key={task.id} className="simpleListItem">
                   <Link href={`/project/${project.id}/tasks/${task.id}`}>{task.title}</Link>
-                  <p>
-                    状態: {statusLabels[task.status]} / 期限: {formatDate(task.dueDate)} / 更新:{' '}
-                    {formatDateTime(task.updatedAt)}
-                  </p>
                 </li>
               ))}
             </ul>
@@ -318,7 +285,6 @@ export default async function ProjectHomePage({
               {filesResult.rows.map((file) => (
                 <li key={file.id} className="simpleListItem">
                   <p className="safeBreak">{file.fileName}</p>
-                  <p>登録: {formatDateTime(file.createdAt)}</p>
                 </li>
               ))}
             </ul>
@@ -334,9 +300,6 @@ export default async function ProjectHomePage({
               {chatResult.rows.map((message) => (
                 <li key={message.id} className="simpleListItem">
                   <p className="safeBreak">{message.message}</p>
-                  <p>
-                    {message.postedByName} / {formatDateTime(message.createdAt)}
-                  </p>
                 </li>
               ))}
             </ul>
