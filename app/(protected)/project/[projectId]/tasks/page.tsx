@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { findProjectForUser } from '@/lib/access';
 import { requireSessionUser } from '@/lib/auth';
 import { listTasksByProject } from '@/lib/phase2';
-import { formatDate, formatDateTime, priorityBadgeClassName, priorityLabels, statusLabels } from '@/lib/phase2-view';
+import { priorityBadgeClassName, priorityLabels, statusLabels } from '@/lib/phase2-view';
 
 const paramsSchema = z.object({
   projectId: z.string().trim().min(1)
@@ -57,20 +57,6 @@ export default async function TasksPage({
                   </span>
                 </div>
               </div>
-              <dl className="metaList">
-                <div>
-                  <dt>担当者</dt>
-                  <dd>{task.assigneeName ?? '—'}</dd>
-                </div>
-                <div>
-                  <dt>期限</dt>
-                  <dd>{formatDate(task.dueDate)}</dd>
-                </div>
-                <div>
-                  <dt>更新日時</dt>
-                  <dd>{formatDateTime(task.updatedAt)}</dd>
-                </div>
-              </dl>
             </article>
           ))
         )}
