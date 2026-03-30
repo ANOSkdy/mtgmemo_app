@@ -291,8 +291,14 @@ textarea {
   min-height: 4rem;
 }
 
-.taskListItemCompact .badgeGroup {
+.taskListItemCompact .listItemHeader {
   flex-wrap: nowrap;
+}
+
+.taskListItemCompact .badgeGroup {
+  margin-left: auto;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 .listItemHeader {
@@ -327,6 +333,7 @@ textarea {
 }
 
 .taskListTitle {
+  flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
