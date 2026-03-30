@@ -45,9 +45,9 @@ export default async function TasksPage({
           <p>タスクはまだありません。</p>
         ) : (
           tasks.map((task) => (
-            <article className="panel listItem" key={task.id}>
+            <article className="panel listItem taskListItemCompact" key={task.id}>
               <div className="listItemHeader">
-                <h3>
+                <h3 className="taskListTitle">
                   <Link href={`/project/${project.id}/tasks/${task.id}`}>{task.title}</Link>
                 </h3>
                 <div className="badgeGroup">
