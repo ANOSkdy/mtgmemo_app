@@ -292,11 +292,12 @@ textarea {
 }
 
 .taskListItemCompact .listItemHeader {
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
 }
 
 .taskListItemCompact .badgeGroup {
-  margin-left: auto;
   flex-wrap: nowrap;
   flex-shrink: 0;
 }
@@ -333,8 +334,11 @@ textarea {
 }
 
 .taskListTitle {
-  flex: 1 1 auto;
   min-width: 0;
+}
+
+.taskListTitle a {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
