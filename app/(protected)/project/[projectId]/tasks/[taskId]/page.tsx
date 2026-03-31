@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { z } from 'zod';
 import { findProjectForUser } from '@/lib/access';
 import { requireSessionUser } from '@/lib/auth';
-import { findTaskDetail, listTaskComments } from '@/lib/phase2';
-import { formatDate, formatDateTime, priorityBadgeClassName, priorityLabels, statusLabels } from '@/lib/phase2-view';
+import { findTaskDetail } from '@/lib/phase2';
+import { formatDate, priorityBadgeClassName, priorityLabels, statusLabels } from '@/lib/phase2-view';
 
 const paramsSchema = z.object({
   projectId: z.string().trim().min(1),
@@ -32,8 +32,6 @@ export default async function TaskDetailPage({
   if (!task) {
     notFound();
   }
-
-  const comments = await listTaskComments(task.id);
 
   return (
     <section className="card">
@@ -66,10 +64,6 @@ export default async function TaskDetailPage({
           <dd>{formatDate(task.dueDate)}</dd>
         </div>
         <div>
-          <dt>更新日時</dt>
-          <dd>{formatDateTime(task.updatedAt)}</dd>
-        </div>
-        <div>
           <dt>関連議事録</dt>
           <dd>
             {task.relatedMeetingNoteId ? (
@@ -82,29 +76,6 @@ export default async function TaskDetailPage({
           </dd>
         </div>
       </dl>
-
-      <article className="panel">
-        <h3>詳細</h3>
-        <p className="plainText">{task.description || '（詳細なし）'}</p>
-      </article>
-
-      <article className="panel">
-        <h3>コメント</h3>
-        {comments.length === 0 ? (
-          <p>コメントはまだありません。</p>
-        ) : (
-          <ul className="simpleList">
-            {comments.map((comment) => (
-              <li key={comment.id} className="commentItem">
-                <p className="plainText">{comment.comment}</p>
-                <small>
-                  {comment.createdByName ?? '—'} / {formatDateTime(comment.createdAt)}
-                </small>
-              </li>
-            ))}
-          </ul>
-        )}
-      </article>
     </section>
   );
 }

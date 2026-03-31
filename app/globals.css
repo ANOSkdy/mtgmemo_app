@@ -287,6 +287,21 @@ textarea {
   gap: 0.625rem;
 }
 
+.taskListItemCompact {
+  min-height: 4rem;
+}
+
+.taskListItemCompact .listItemHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.taskListItemCompact .badgeGroup {
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+}
+
 .listItemHeader {
   display: flex;
   justify-content: space-between;
@@ -316,6 +331,17 @@ textarea {
   align-items: center;
   gap: 0.375rem;
   flex-wrap: wrap;
+}
+
+.taskListTitle {
+  min-width: 0;
+}
+
+.taskListTitle a {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .badge {
